@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vector.music.mapper.UserMapper">
+
+    <resultMap id="CurrencyResultMap" type="com.vector.music.pojo.User" >
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="gender" jdbcType="TINYINT" property="gender"/>
+        <result column="phone_num" jdbcType="CHAR" property="phoneNum"/>
+        <result column="email" jdbcType="CHAR" property="email"/>
+        <result column="birth" jdbcType="DATE" property="birth"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
+        <result column="avator" jdbcType="VARCHAR" property="avator"/>
+        <result column="create_time" jdbcType="DATE" property="createTime"/>
+        <result column="update_time" jdbcType="DATE" property="updateTime"/>
+    </resultMap>
+    <select id="verifyPassword" resultType="java.lang.Integer">
+        select count(*) from user where username = #{username} and password = #{password}
+    </select>
+</mapper>
