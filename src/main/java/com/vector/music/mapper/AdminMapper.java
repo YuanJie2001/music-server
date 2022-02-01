@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * @author YuanJie
  * @since 2022-01-31
  */
-
+@Repository
 public interface AdminMapper extends BaseMapper<Admin> {
     /**
      * 验证密码是否正确
