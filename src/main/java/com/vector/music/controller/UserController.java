@@ -3,7 +3,7 @@ package com.vector.music.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.vector.music.service.IUserService;
-import com.vector.music.utils.Consts;
+import com.vector.music.mapper.utils.Consts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

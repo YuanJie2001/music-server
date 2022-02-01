@@ -1,4 +1,4 @@
-package com.vector.music.utils;
+package com.vector.music.mapper.utils;
 
 /**
  * @ClassName Consts
