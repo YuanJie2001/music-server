@@ -1,4 +1,4 @@
-package com.vector.music.mapper.utils;
+package com.vector.music.utils;
 
 
 
@@ -39,7 +39,7 @@ public class Generator {
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml, path+"/src/main/resources/mapper")); // 设置mapperXml生成路径;
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("admin","collect","comment","list_contain_song","rank","sing","song","song_list","user"); // 设置需要生成的表名
+                    builder.addInclude("admin","collect","comment","list_contain_song","rank","singer","song","song_list","user"); // 设置需要生成的表名
                 })
                 .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();

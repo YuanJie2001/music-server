@@ -2,7 +2,6 @@ package com.vector.music.mapper;
 
 import com.vector.music.pojo.Admin;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * </p>
  *
  * @author YuanJie
- * @since 2022-01-31
+ * @since 2022-02-03
  */
 @Repository
 public interface AdminMapper extends BaseMapper<Admin> {

@@ -4,7 +4,7 @@
 <mapper namespace="com.vector.music.mapper.AdminMapper">
     <resultMap id="CurrencyResultMap" type="com.vector.music.pojo.Admin" >
         <id column="id" property="id"/>
-        <result column="is_delete" property="isDelete"/>
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
         <result column="name" property="name"/>
         <result column="password" property="password"/>
         <result column="create_time" property="createTime"/>

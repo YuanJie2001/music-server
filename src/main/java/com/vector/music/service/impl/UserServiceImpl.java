@@ -4,7 +4,6 @@ import com.vector.music.pojo.User;
 import com.vector.music.mapper.UserMapper;
 import com.vector.music.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,17 +12,9 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author YuanJie
- * @since 2022-01-31
+ * @since 2022-02-03
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
-    @Autowired
-    private UserMapper userMapper;
-    /**
-     * 验证密码是否正确
-     */
-    @Override
-    public boolean verifyPassword(String username, String password) {
-        return userMapper.verifyPassword(username,password)>0;
-    }
+
 }

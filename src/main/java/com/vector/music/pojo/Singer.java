@@ -13,10 +13,10 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author YuanJie
- * @since 2022-01-31
+ * @since 2022-02-03
  */
-@ApiModel(value = "Sing对象", description = "歌手")
-public class Sing implements Serializable {
+@ApiModel(value = "Singer对象", description = "歌手")
+public class Singer implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -123,7 +123,7 @@ public class Sing implements Serializable {
 
     @Override
     public String toString() {
-        return "Sing{" +
+        return "Singer{" +
             "id=" + id +
             ", isDelete=" + isDelete +
             ", name=" + name +

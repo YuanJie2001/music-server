@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author YuanJie
- * @since 2022-01-31
+ * @since 2022-02-03
  */
 @ApiModel(value = "Collect对象", description = "收藏")
 public class Collect implements Serializable {

@@ -24,7 +24,7 @@ public class Admin implements Serializable {
     private Integer id;
 
     @ApiModelProperty("0未删除 1已删除")
-    private Integer isDelete;
+    private Byte isDelete;
 
     @ApiModelProperty("管理员名称")
     private String name;
@@ -45,11 +45,11 @@ public class Admin implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-    public Integer getIsDelete() {
+    public Byte getIsDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(Integer isDelete) {
+    public void setIsDelete(Byte isDelete) {
         this.isDelete = isDelete;
     }
     public String getName() {

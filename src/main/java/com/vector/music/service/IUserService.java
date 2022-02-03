@@ -9,11 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author YuanJie
- * @since 2022-01-31
+ * @since 2022-02-03
  */
 public interface IUserService extends IService<User> {
-    /**
-     * 验证密码是否正确
-     */
-    public boolean verifyPassword(String username,String password);
+
 }

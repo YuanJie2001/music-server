@@ -14,7 +14,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author YuanJie
- * @since 2022-01-31
+ * @since 2022-02-03
  */
 @TableName("list_contain_song")
 @ApiModel(value = "ListContainSong对象", description = "歌单包含的歌曲")

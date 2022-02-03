@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vector.music.mapper.SingerMapper">
+    <resultMap id="BaseResultMap" type="com.vector.music.pojo.Singer">
+        <id column="id" property="id"/>
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="birth" property="birth"/>
+        <result column="location" property="location"/>
+        <result column="introduction" property="introduction"/>
+        <result column="avator" property="avator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_list">id,is_delete,name,gender,birth,location,introduction,avator,create_time,update_time</sql>
+    <insert id="insert" parameterType="com.vector.music.pojo.Singer">
+        insert into singer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            name,gender,birth,
+            <if test="location != null">
+                location,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+            <if test="avator != null">
+                avator,
+            </if>
+        </trim>
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            #{name},#{gender},#{birth},
+            <if test="location != null">
+                #{location},
+            </if>
+            <if test="introduction != null">
+                #{introduction},
+            </if>
+            <if test="avator != null">
+                #{avator},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.vector.music.pojo.Singer">
+        update singer
+        <set>
+            name=#{name},gender=#{gender},birth=#{birth},
+            <if test="location != null">
+                location = #{location},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction},
+            </if>
+            <if test="avator != null">
+                avator = #{avator}
+            </if>
+        </set>
+        where id = #{id} and 1=1
+    </update>
+
+    <update id="delete" parameterType="java.lang.Integer">
+        update singer
+        <set>
+            is_delete=1
+        </set>
+        where id = #{id} and 1=1
+    </update>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_list"/>
+        from singer
+        where id=#{id} and is_delete=0 and 1=1
+    </select>
+
+    <select id="allSinger" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_list"/>
+        from singer where is_delete=0 and 1=1
+    </select>
+
+    <select id="singerOfName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_list"/>
+        from singer
+        where name like #{name} and is_delete=0 and 1=1
+    </select>
+
+    <select id="singerOfGender" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_list"/>
+        from singer
+        where gender = #{gender} and is_delete=0 and 1=1
+    </select>
+</mapper>
