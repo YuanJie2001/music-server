@@ -21,7 +21,7 @@ import java.util.List;
 public class SingerServiceImpl extends ServiceImpl<SingerMapper, Singer> implements ISingerService {
 
     @Autowired
-    SingerMapper singerMapper;
+    private SingerMapper singerMapper;
 
     @Override
     public boolean insert(Singer singer) {

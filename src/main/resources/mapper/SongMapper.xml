@@ -1,5 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.vector.music.mapper.SongMapper">
+    <resultMap id="BaseResultMapWithBLOBs" type="com.vector.music.pojo.Song">
+        <id column="id" property="id"/>
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
+        <result column="singer_id" property="singerId"/>
+        <result column="name" property="name"/>
+        <result column="introduction" property="introduction"/>
+        <result column="url" property="url"/>
+        <result column="picture" property="picture"/>
+        <result column="lyric" property="lyric"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_list">
+        id
+        ,is_delete,singer_id,name,introduction,url,picture,create_time,update_time</sql>
+    <sql id="Blob_column_List">
+        id
+        ,is_delete,singer_id,name,introduction,url,picture,lyric,create_time,update_time
+    </sql>
+    <insert id="insert" parameterType="com.vector.music.pojo.Song">
+        insert into song
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="singerId != null">
+                singer_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="picture != null">
+                picture,
+            </if>
+            <if test="lyric != null">
+                lyric,
+            </if>
+        </trim>
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="singerId != null">
+                #{singerId},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="introduction != null">
+                #{introduction},
+            </if>
+            <if test="url != null">
+                #{url},
+            </if>
+            <if test="picture != null">
+                #{picture},
+            </if>
+            <if test="lyric != null">
+                #{lyric},
+            </if>
+        </trim>
+    </insert>
 
+    <update id="update" parameterType="com.vector.music.pojo.Song">
+        update song
+        <set>
+            <if test="singerId != null">
+                singer_id=#{singerId},
+            </if>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="introduction != null">
+                introduction=#{introduction},
+            </if>
+            <if test="url != null">
+                url = #{url},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction},
+            </if>
+            <if test="picture != null">
+                picture = #{picture}
+            </if>
+            <if test="lyric != null">
+                lyric = #{lyric},
+            </if>
+        </set>
+        where id = #{id} and 1=1
+    </update>
+
+    <update id="delete" parameterType="java.lang.Integer">
+        update song
+        <set>
+            is_delete=1
+        </set>
+        where id = #{id} and 1=1
+    </update>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Blob_column_List"/>
+        from song
+        where id=#{id} and is_delete=0 and 1=1
+    </select>
+
+    <select id="allSong" resultMap="BaseResultMapWithBLOBs">
+        select
+        <include refid="Blob_column_List"/>
+        from song where is_delete=0 and 1=1
+    </select>
+
+    <select id="songOfName" resultMap="BaseResultMapWithBLOBs" parameterType="java.lang.String">
+        select
+        <include refid="Blob_column_List"/>
+        from song
+        where name like #{name} and is_delete=0 and 1=1
+    </select>
+
+    <select id="songOfSingerId" resultMap="BaseResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Blob_column_List"/>
+        from song
+        where singer_id = #{singerId} and is_delete=0 and 1=1
+    </select>
 </mapper>

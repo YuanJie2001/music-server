@@ -7,17 +7,26 @@
         <result column="name" property="name"/>
         <result column="gender" property="gender"/>
         <result column="birth" property="birth"/>
-        <result column="location" property="location"/>
-        <result column="introduction" property="introduction"/>
-        <result column="avator" property="avator"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
+        <result column="avator" jdbcType="VARCHAR" property="avator"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
-    <sql id="Base_Column_list">id,is_delete,name,gender,birth,location,introduction,avator,create_time,update_time</sql>
+    <sql id="Base_Column_list">id
+    ,is_delete,name,gender,birth,location,introduction,avator,create_time,update_time</sql>
     <insert id="insert" parameterType="com.vector.music.pojo.Singer">
         insert into singer
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            name,gender,birth,
+            <if test="name != null">
+                name,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="birth != null">
+                birth,
+            </if>
             <if test="location != null">
                 location,
             </if>
@@ -29,7 +38,15 @@
             </if>
         </trim>
         <trim prefix=" values(" suffix=")" suffixOverrides=",">
-            #{name},#{gender},#{birth},
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="gender != null">
+                #{gender},
+            </if>
+            <if test="birth != null">
+                #{birth},
+            </if>
             <if test="location != null">
                 #{location},
             </if>
@@ -45,7 +62,15 @@
     <update id="update" parameterType="com.vector.music.pojo.Singer">
         update singer
         <set>
-            name=#{name},gender=#{gender},birth=#{birth},
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="gender != null">
+                gender=#{gender},
+            </if>
+            <if test="birth != null">
+                birth=#{birth},
+            </if>
             <if test="location != null">
                 location = #{location},
             </if>
