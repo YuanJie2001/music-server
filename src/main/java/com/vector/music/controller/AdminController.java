@@ -2,12 +2,15 @@ package com.vector.music.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.vector.music.pojo.Admin;
 import com.vector.music.service.IAdminService;
 import com.vector.music.utils.Consts;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,10 +37,10 @@ public class AdminController {
      */
     @PostMapping( "/login/status")
     @ResponseBody
-    public Object loginStatus(HttpServletRequest request, HttpSession session){
+    public Object loginStatus(@RequestBody Admin admin, HttpSession session){
         JSONObject jsonObject = new JSONObject();
-        String name = request.getParameter("name");
-        String password = request.getParameter("password");
+        String name = admin.getName();
+        String password = admin.getPassword();
         boolean result = adminService.verifyPassword(name,password);
         if (result){
             jsonObject.put(Consts.CODE,1);

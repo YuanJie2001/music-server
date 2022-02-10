@@ -38,22 +38,22 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements IS
     }
 
     @Override
-    public Singer selectByPrimaryKey(Integer id) {
+    public Song selectByPrimaryKey(Integer id) {
         return songMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public List<Singer> allSong() {
+    public List<Song> allSong() {
         return songMapper.allSong();
     }
 
     @Override
-    public List<Singer> songOfName(String name) {
+    public List<Song> songOfName(String name) {
         return songMapper.songOfName(name);
     }
 
     @Override
-    public List<Singer> songOfSingerId(Integer singerId) {
+    public List<Song> songOfSingerId(Integer singerId) {
         return songMapper.songOfSingerId(singerId);
     }
 }

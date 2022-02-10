@@ -35,18 +35,19 @@ public interface ISongService extends IService<Song> {
     /**
      * 根据主键单个查询
      */
-    public Singer selectByPrimaryKey(Integer id);
+    public Song selectByPrimaryKey(Integer id);
 
     /**
      * 查询所有歌手
      */
-    public List<Singer> allSong();
+    public List<Song> allSong();
     /**
-     * 根据歌手名模糊查询
+     * 根据歌手名精确查询
      */
-    public List<Singer> songOfName(String name);
+    public List<Song> songOfName(String name);
     /**
      * 根据性别查询
      */
-    public List<Singer> songOfSingerId(Integer singerId);
+    public List<Song> songOfSingerId(Integer singerId);
+
 }

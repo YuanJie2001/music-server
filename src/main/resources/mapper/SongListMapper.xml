@@ -1,5 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.vector.music.mapper.SongListMapper">
+    <resultMap id="BaseResultMapWithBLOBs" type="com.vector.music.pojo.SongList">
+        <id column="id" property="id"/>
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="style" property="style"/>
+        <result column="introduction" property="introduction"/>
+        <result column="picture" property="picture"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_list">
+        id
+        ,is_delete,title,style,picture,create_time,update_time</sql>
+    <sql id="Blob_column_List">
+        id
+        ,is_delete,title,style,picture,introduction,create_time,update_time
+    </sql>
+    <insert id="insert" parameterType="com.vector.music.pojo.SongList">
+        insert into song_list
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="style != null">
+                style,
+            </if>
+            <if test="picture != null">
+                picture,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+        </trim>
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="title != null">
+                #{title},
+            </if>
+            <if test="style != null">
+                #{style},
+            </if>
+            <if test="picture != null">
+                #{picture},
+            </if>
+            <if test="introduction != null">
+                #{introduction},
+            </if>
+        </trim>
+    </insert>
 
+    <update id="update" parameterType="com.vector.music.pojo.SongList">
+        update song_list
+        <set>
+
+            <if test="title != null">
+                title=#{title},
+            </if>
+            <if test="style != null">
+                style=#{style},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction},
+            </if>
+            <if test="picture != null">
+                picture = #{picture}
+            </if>
+        </set>
+        where id = #{id} and 1=1
+    </update>
+
+    <update id="delete" parameterType="java.lang.Integer">
+        update song_list
+        <set>
+            is_delete=1
+        </set>
+        where id = #{id} and 1=1
+    </update>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Blob_column_List"/>
+        from song_list
+        where id=#{id} and is_delete=0 and 1=1
+    </select>
+
+    <select id="allSongList" resultMap="BaseResultMapWithBLOBs">
+        select
+        <include refid="Blob_column_List"/>
+        from song_list where is_delete=0 and 1=1
+    </select>
+
+    <select id="songListOfTitle" resultMap="BaseResultMapWithBLOBs" parameterType="java.lang.String">
+        select
+        <include refid="Blob_column_List"/>
+        from song_list
+        where title like #{title} and is_delete=0 and 1=1
+    </select>
+
+    <select id="likeTitle" resultMap="BaseResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Blob_column_List"/>
+        from song_list
+        where title = #{title} and is_delete=0 and 1=1
+    </select>
+
+    <select id="likeStyle" resultMap="BaseResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Blob_column_List"/>
+        from song_list
+        where style = #{style} and is_delete=0 and 1=1
+    </select>
 </mapper>

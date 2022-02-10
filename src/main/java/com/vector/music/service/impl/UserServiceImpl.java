@@ -4,7 +4,10 @@ import com.vector.music.pojo.User;
 import com.vector.music.mapper.UserMapper;
 import com.vector.music.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +19,45 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+    @Autowired
+    private UserMapper userMapper;
+    @Override
+    public boolean insert(User user) {
+        return userMapper.insert(user)>0;
+    }
 
+    @Override
+    public boolean update(User user) {
+        return userMapper.update(user)>0;
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        return userMapper.delete(id)>0;
+    }
+
+    @Override
+    public User selectByPrimaryKey(Integer id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<User> allUser() {
+        return userMapper.allUser();
+    }
+
+    @Override
+    public List<User> userOfName(String name) {
+        return userMapper.userOfName(name);
+    }
+
+    @Override
+    public int verifyPassword(String username, String password) {
+        return userMapper.verifyPassword(username,password);
+    }
+
+    @Override
+    public User getByUsername(String username) {
+        return userMapper.getByUsername(username);
+    }
 }

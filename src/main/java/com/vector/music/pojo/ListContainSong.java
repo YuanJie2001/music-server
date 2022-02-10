@@ -32,7 +32,7 @@ public class ListContainSong implements Serializable {
     private Integer songId;
 
     @ApiModelProperty("歌单id")
-    private Integer songeListId;
+    private Integer songListId;
 
     @ApiModelProperty("创建字段的时间")
     private LocalDateTime createTime;
@@ -61,12 +61,12 @@ public class ListContainSong implements Serializable {
     public void setSongId(Integer songId) {
         this.songId = songId;
     }
-    public Integer getSongeListId() {
-        return songeListId;
+    public Integer getSongListId() {
+        return songListId;
     }
 
-    public void setSongeListId(Integer songeListId) {
-        this.songeListId = songeListId;
+    public void setSongListId(Integer songListId) {
+        this.songListId = songListId;
     }
     public LocalDateTime getCreateTime() {
         return createTime;
@@ -89,7 +89,7 @@ public class ListContainSong implements Serializable {
             "id=" + id +
             ", isDelete=" + isDelete +
             ", songId=" + songId +
-            ", songeListId=" + songeListId +
+            ", songListId=" + songListId +
             ", createTime=" + createTime +
             ", updateTime=" + updateTime +
         "}";

@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -42,7 +44,7 @@ public class User implements Serializable {
     private String email;
 
     @ApiModelProperty("生日")
-    private LocalDateTime birth;
+    private String birth;
 
     @ApiModelProperty("地区")
     private String location;
@@ -108,11 +110,11 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-    public LocalDateTime getBirth() {
+    public String getBirth() {
         return birth;
     }
 
-    public void setBirth(LocalDateTime birth) {
+    public void setBirth(String birth) {
         this.birth = birth;
     }
     public String getLocation() {

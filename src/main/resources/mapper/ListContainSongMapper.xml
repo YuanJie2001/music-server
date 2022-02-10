@@ -1,5 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.vector.music.mapper.ListContainSongMapper">
+    <resultMap id="BaseResultMap" type="com.vector.music.pojo.ListContainSong">
+        <id column="id" property="id"/>
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
+        <result column="song_id" property="songId"/>
+        <result column="song_list_id" property="songListId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Blob_column_List">
+        id
+        ,is_delete,song_id,song_list_id,create_time,update_time
+    </sql>
+    <insert id="insert" parameterType="com.vector.music.pojo.ListContainSong">
+        insert into list_contain_song
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="songId != null">
+                song_id,
+            </if>
+            <if test="songListId != null">
+                song_list_id,
+            </if>
+        </trim>
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="songId != null">
+                #{songId},
+            </if>
+            <if test="songListId != null">
+                #{songListId},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.vector.music.pojo.ListContainSong">
+        update list_contain_song
+        <set>
+            <if test="songId != null">
+                songId=#{songId},
+            </if>
+            <if test="songListId != null">
+                songListId=#{songListId},
+            </if>
+        </set>
+        where id = #{id} and 1=1
+    </update>
+
+    <update id="delete" parameterType="java.lang.Integer">
+        update list_contain_song
+        <set>
+            is_delete=1
+        </set>
+        where id = #{id} and 1=1
+    </update>
+    <update id="deleteBySongIdAndSongListId" parameterType="java.util.HashMap">
+        update list_contain_song
+        <set>
+            is_delete=1
+        </set>
+        where song_id = #{songId} and song_list_id = #{songListId} and 1=1
+    </update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Blob_column_List"/>
+        from list_contain_song
+        where id=#{id} and is_delete=0 and 1=1
+    </select>
+
+    <select id="allListContainSong" resultMap="BaseResultMap">
+        select
+        <include refid="Blob_column_List"/>
+        from list_contain_song where is_delete=0 and 1=1
+    </select>
+
+    <select id="listSongOfSongListId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Blob_column_List"/>
+        from list_contain_song
+        where song_list_id = #{songListId} and is_delete=0 and 1=1
+    </select>
 
 </mapper>

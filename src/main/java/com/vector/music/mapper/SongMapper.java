@@ -31,19 +31,19 @@ public interface SongMapper extends BaseMapper<Song> {
     /**
      * 根据主键单个查询
      */
-    public Singer selectByPrimaryKey(Integer id);
+    public Song selectByPrimaryKey(Integer id);
 
     /**
      * 查询所有歌曲
      */
-    public List<Singer> allSong();
+    public List<Song> allSong();
     /**
-     * 根据歌曲名模糊查询
+     * 根据歌曲名精确查询
      */
-    public List<Singer> songOfName(String name);
+    public List<Song> songOfName(String name);
     /**
      * 根据歌手id查询
      * @param singerId
      */
-    public List<Singer> songOfSingerId(Integer singerId);
+    public List<Song> songOfSingerId(Integer singerId);
 }

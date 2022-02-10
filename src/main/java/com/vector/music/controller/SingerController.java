@@ -5,16 +5,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.vector.music.pojo.Singer;
 import com.vector.music.service.ISingerService;
 import com.vector.music.utils.Consts;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,29 +29,13 @@ import java.util.UUID;
 public class SingerController {
     @Autowired
     private ISingerService singerService;
-
     /**
      * 增添歌手
      */
     @PostMapping("/add")
     @ResponseBody
-    public Object addSinger(HttpServletRequest request) {
+    public Object addSinger(@RequestBody Singer singer) {
         JSONObject jsonObject = new JSONObject();
-        String name = request.getParameter("name").trim();
-        String gender = request.getParameter("gender").trim();
-        String birth = request.getParameter("birth").trim();
-        String location = request.getParameter("location").trim();
-        String introduction = request.getParameter("introduction").trim();
-        String avator = request.getParameter("avator").trim();
-        // LocalDateTime格式必须为 yyyy-MM-ddTHH:mm:ss
-        LocalDateTime birthDate = LocalDateTime.parse(birth + "T00:00:00");
-        Singer singer = new Singer();
-        singer.setName(name);
-        singer.setGender(Integer.parseInt(gender));
-        singer.setBirth(birthDate);
-        singer.setLocation(location);
-        singer.setIntroduction(introduction);
-        singer.setAvator(avator);
         boolean flag = singerService.insert(singer);
         if (flag) {
             jsonObject.put(Consts.CODE, 1);
@@ -70,23 +52,8 @@ public class SingerController {
      */
     @PostMapping("/update")
     @ResponseBody
-    public Object updateSinger(HttpServletRequest request) {
+    public Object updateSinger(@RequestBody Singer singer) {
         JSONObject jsonObject = new JSONObject();
-        String id = request.getParameter("id").trim();
-        String name = request.getParameter("name").trim();
-        String gender = request.getParameter("gender").trim();
-        String birth = request.getParameter("birth").trim();
-        String location = request.getParameter("location").trim();
-        String introduction = request.getParameter("introduction").trim();
-        // LocalDateTime格式必须为 yyyy-MM-ddTHH:mm:ss
-        LocalDateTime birthDate = LocalDateTime.parse(birth + "T00:00:00");
-        Singer singer = new Singer();
-        singer.setId(Integer.valueOf(id));
-        singer.setName(name);
-        singer.setGender(Integer.parseInt(gender));
-        singer.setBirth(birthDate);
-        singer.setLocation(location);
-        singer.setIntroduction(introduction);
         boolean flag = singerService.update(singer);
         if (flag) {
             jsonObject.put(Consts.CODE, 1);
@@ -103,8 +70,8 @@ public class SingerController {
      */
     @GetMapping("/delete")
     @ResponseBody
-    public Object deleteSinger(HttpServletRequest request) {
-        String id = request.getParameter("id").trim();
+    public Object deleteSinger(@RequestBody Singer singer) {
+        String id = String.valueOf(singer.getId());
         return singerService.delete(Integer.parseInt(id));
     }
 
@@ -113,8 +80,8 @@ public class SingerController {
      */
     @GetMapping("/selectByPrimaryKey")
     @ResponseBody
-    public Object selectByPrimaryKey(HttpServletRequest request) {
-        String id = request.getParameter("id").trim();
+    public Object selectByPrimaryKey(@RequestBody Singer singer) {
+        String id = String.valueOf(singer.getId());
         return singerService.selectByPrimaryKey(Integer.parseInt(id));
     }
 
@@ -132,9 +99,8 @@ public class SingerController {
      */
     @GetMapping("/singerOfName")
     @ResponseBody
-    public List<Singer> singerOfName(HttpServletRequest request) {
-        String name = request.getParameter("name").trim();
-        return singerService.singerOfName("%" + name + "%");
+    public List<Singer> singerOfName(@RequestBody Singer singer) {
+        return singerService.singerOfName("%" + singer.getName() + "%");
     }
 
     /**
@@ -142,8 +108,8 @@ public class SingerController {
      */
     @GetMapping("/singerOfGender")
     @ResponseBody
-    public List<Singer> singerOfGender(HttpServletRequest request) {
-        String gender = request.getParameter("gender").trim();
+    public List<Singer> singerOfGender(@RequestBody Singer singer) {
+        String gender = String.valueOf(singer.getGender());
         return singerService.singerOfGender(Byte.valueOf(gender));
     }
 
@@ -194,7 +160,7 @@ public class SingerController {
             jsonObject.put(Consts.CODE, 0);
             jsonObject.put(Consts.MSG, "文件上传失败");
             return jsonObject;
-        } catch (IOException e) {
+        } catch (Exception e) {
             jsonObject.put(Consts.CODE, 0);
             jsonObject.put(Consts.MSG, "文件上传失败,原因是:" + e.getMessage());
         } finally {

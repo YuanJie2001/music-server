@@ -33,7 +33,7 @@ public class Singer implements Serializable {
     private Integer gender;
 
     @ApiModelProperty("生日")
-    private LocalDateTime birth;
+    private String birth;
 
     @ApiModelProperty("地区")
     private String location;
@@ -78,11 +78,11 @@ public class Singer implements Serializable {
     public void setGender(Integer gender) {
         this.gender = gender;
     }
-    public LocalDateTime getBirth() {
+    public String getBirth() {
         return birth;
     }
 
-    public void setBirth(LocalDateTime birth) {
+    public void setBirth(String birth) {
         this.birth = birth;
     }
     public String getLocation() {
