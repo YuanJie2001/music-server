@@ -1,5 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.vector.music.mapper.RankMapper">
+    <resultMap id="BaseResultMap" type="com.vector.music.pojo.Rank">
+        <id column="id" property="id"/>
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+        <result column="song_list_id" jdbcType="INTEGER" property="songListId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.vector.music.pojo.Rank">
+        insert into `rank`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="score != null">
+                score,
+            </if>
+            <if test="songListId != null">
+                song_list_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+        </trim>
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="score != null">
+                #{score},
+            </if>
+            <if test="songListId != null">
+                #{songListId},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+        </trim>
+    </insert>
 
+    <select id="selectScoreSum" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select COALESCE (sum(score),0) as score
+        from `rank`
+        where song_list_id = #{songListId} and is_delete=0 and 1=1
+    </select>
+
+    <select id="selectRankNum" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select COALESCE (count(id),0) as id
+        from `rank`
+        where song_list_id = #{songListId} and is_delete=0 and 1=1
+    </select>
 </mapper>

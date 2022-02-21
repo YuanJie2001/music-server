@@ -112,8 +112,7 @@ public class SongListController {
     @GetMapping("/likeTitle")
     @ResponseBody
     public List<SongList> likeTitle(@RequestBody SongList songList) {
-        String title = songList.getTitle();
-        return songListService.likeTitle("%" + title + "%");
+        return songListService.likeTitle("%" + songList.getTitle() + "%");
     }
     /**
      * 根据风格模糊查询

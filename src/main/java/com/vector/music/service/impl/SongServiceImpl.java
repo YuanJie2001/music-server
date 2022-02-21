@@ -56,4 +56,9 @@ public class SongServiceImpl extends ServiceImpl<SongMapper, Song> implements IS
     public List<Song> songOfSingerId(Integer singerId) {
         return songMapper.songOfSingerId(singerId);
     }
+
+    @Override
+    public List<Song> likeSongOfName(String name) {
+        return songMapper.likeSongOfName("%"+name+"%");
+    }
 }

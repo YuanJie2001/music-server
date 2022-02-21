@@ -107,6 +107,9 @@
             <if test="introduction != null">
                 introduction = #{introduction},
             </if>
+            <if test="avator != null">
+                avator = #{avator},
+            </if>
         </set>
         where id = #{id} and 1=1
     </update>

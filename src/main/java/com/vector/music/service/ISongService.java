@@ -49,5 +49,9 @@ public interface ISongService extends IService<Song> {
      * 根据性别查询
      */
     public List<Song> songOfSingerId(Integer singerId);
+    /**
+     * 根据歌名模糊查询
+     */
+    public List<Song> likeSongOfName(String name);
 
 }

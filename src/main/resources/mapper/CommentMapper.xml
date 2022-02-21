@@ -1,5 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.vector.music.mapper.CommentMapper">
+    <resultMap id="BaseResultMap" type="com.vector.music.pojo.Comment">
+        <id column="id" property="id"/>
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
+        <result column="user_id" property="userId"/>
+        <result column="type" property="type"/>
+        <result column="song_id" jdbcType="INTEGER" property="songId"/>
+        <result column="song_list_id" jdbcType="INTEGER" property="songListId"/>
+        <result column="up" jdbcType="INTEGER" property="up"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,user_id,type,song_id,song_list_id,up,create_time,update_time,content
+    </sql>
+    <insert id="insert" parameterType="com.vector.music.pojo.Comment">
+        insert into comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="songId != null">
+                song_id,
+            </if>
+            <if test="songListId != null">
+                song_list_id,
+            </if>
+            <if test="up != null">
+                up,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+        </trim>
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="songId != null">
+                #{songId},
+            </if>
+            <if test="songListId != null">
+                #{songListId},
+            </if>
+            <if test="up != null">
+                #{up},
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+        </trim>
+    </insert>
 
+    <update id="update" parameterType="com.vector.music.pojo.Comment">
+        update comment
+        <set>
+            <if test="userId != null">
+                user_id=#{userId},
+            </if>
+            <if test="type != null">
+                type=#{type},
+            </if>
+            <if test="songId != null">
+                song_id=#{songId},
+            </if>
+            <if test="songListId != null">
+                song_list_id = #{songListId},
+            </if>
+            <if test="up != null">
+                up = #{up},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+        </set>
+        where id = #{id} and 1=1
+    </update>
+
+    <update id="delete" parameterType="java.lang.Integer">
+        update comment
+        <set>
+            is_delete=1
+        </set>
+        where id = #{id} and 1=1
+    </update>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        where id=#{id} and is_delete=0 and 1=1
+    </select>
+
+    <select id="allComment" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from comment where is_delete=0 and 1=1
+    </select>
+
+    <select id="commentOfSongId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        where song_id = #{songId} and is_delete=0 and 1=1
+    </select>
+
+    <select id="commentOfSongListId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        where song_list_id = #{songListId} and is_delete=0 and 1=1
+    </select>
 </mapper>

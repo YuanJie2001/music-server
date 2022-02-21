@@ -6,6 +6,7 @@ import com.vector.music.pojo.ListContainSong;
 import com.vector.music.service.IListContainSongService;
 import com.vector.music.utils.Consts;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 @RequestMapping("/ListContainSong")
+@Slf4j
 public class ListContainSongController {
     @Autowired
     private IListContainSongService listContainSongService;

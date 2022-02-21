@@ -43,7 +43,7 @@ public interface IUserService extends IService<User> {
     /**
      * 修改密码
      */
-    public int verifyPassword(String username,String password);
+    public boolean verifyPassword(String username,String password);
     /**
      * 根据账号查询用户
      */

@@ -33,7 +33,7 @@ public class Rank implements Serializable {
     private Integer songListId;
 
     @ApiModelProperty("用户id")
-    private Integer consumerId;
+    private Integer userId;
 
     @ApiModelProperty("创建字段的时间")
     private LocalDateTime createTime;
@@ -69,12 +69,12 @@ public class Rank implements Serializable {
     public void setSongListId(Integer songListId) {
         this.songListId = songListId;
     }
-    public Integer getConsumerId() {
-        return consumerId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setConsumerId(Integer consumerId) {
-        this.consumerId = consumerId;
+    public void setUserId(Integer consumerId) {
+        this.userId = consumerId;
     }
     public LocalDateTime getCreateTime() {
         return createTime;
@@ -98,7 +98,7 @@ public class Rank implements Serializable {
             ", isDelete=" + isDelete +
             ", score=" + score +
             ", songListId=" + songListId +
-            ", consumerId=" + consumerId +
+            ", consumerId=" + userId +
             ", createTime=" + createTime +
             ", updateTime=" + updateTime +
         "}";

@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,11 +40,17 @@ public class UserController {
     @ResponseBody
     public Object addUser(@RequestBody User user) {
         JSONObject jsonObject = new JSONObject();
-        String username = user.getUsername().trim();
-        String password = user.getPassword().trim();
+        String username = user.getUsername();
+        String password = user.getPassword();
         if (username.equals("") || password.equals("")) {
             jsonObject.put(Consts.CODE, 0);
             jsonObject.put(Consts.MSG, "用户名或密码不能为空");
+            return jsonObject;
+        }
+        User u = userService.getByUsername(username);
+        if(u != null) {
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "用户名已存在");
             return jsonObject;
         }
         boolean flag = userService.insert(user);
@@ -159,7 +162,7 @@ public class UserController {
             if (flag) {
                 jsonObject.put(Consts.CODE, 1);
                 jsonObject.put(Consts.MSG, "文件上传成功");
-                jsonObject.put("avator", "文件上传成功");
+                jsonObject.put("avator", user.getAvator());
                 return jsonObject;
             }
             jsonObject.put(Consts.CODE, 0);
@@ -171,6 +174,32 @@ public class UserController {
         } finally {
             return jsonObject;
         }
+    }
+
+    /**
+     * 前端用户登录
+     */
+    @PostMapping("/login")
+    @ResponseBody
+    public Object login(@RequestBody User user) {
+        JSONObject jsonObject = new JSONObject();
+        String username = user.getUsername(); // 账号
+        String password = user.getPassword(); // 密码
+        if (username.equals("") || password.equals("")) {
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "用户名或密码不能为空");
+            return jsonObject;
+        }
+        boolean flag = userService.verifyPassword(username, password);
+        if (flag) {
+            jsonObject.put(Consts.CODE, 1);
+            jsonObject.put(Consts.MSG, "登录成功");
+            jsonObject.put("userMsg", userService.getByUsername(username));
+            return jsonObject;
+        }
+        jsonObject.put(Consts.CODE, 0);
+        jsonObject.put(Consts.MSG, "用户名或密码错误");
+        return jsonObject;
     }
 
 }

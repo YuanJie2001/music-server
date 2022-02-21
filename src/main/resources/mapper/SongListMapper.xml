@@ -102,20 +102,20 @@
         select
         <include refid="Blob_column_List"/>
         from song_list
-        where title like #{title} and is_delete=0 and 1=1
-    </select>
-
-    <select id="likeTitle" resultMap="BaseResultMapWithBLOBs" parameterType="java.lang.Integer">
-        select
-        <include refid="Blob_column_List"/>
-        from song_list
         where title = #{title} and is_delete=0 and 1=1
     </select>
 
-    <select id="likeStyle" resultMap="BaseResultMapWithBLOBs" parameterType="java.lang.Integer">
+    <select id="likeTitle" resultMap="BaseResultMapWithBLOBs" parameterType="java.lang.String">
         select
         <include refid="Blob_column_List"/>
         from song_list
-        where style = #{style} and is_delete=0 and 1=1
+        where title like #{title} and is_delete=0 and 1=1
+    </select>
+
+    <select id="likeStyle" resultMap="BaseResultMapWithBLOBs" parameterType="java.lang.String">
+        select
+        <include refid="Blob_column_List"/>
+        from song_list
+        where style like #{style} and is_delete=0 and 1=1
     </select>
 </mapper>

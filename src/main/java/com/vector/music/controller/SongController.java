@@ -69,6 +69,7 @@ public class SongController {
         try {
             songFile.transferTo(new File(finalPath));
             song.setPicture(picture);
+            song.setUrl(storeUrlPath);
             boolean flag = songService.insert(song);
             if (flag) {
                 jsonObject.put(Consts.CODE, 1);
@@ -79,30 +80,12 @@ public class SongController {
             jsonObject.put(Consts.CODE, 0);
             jsonObject.put(Consts.MSG, "保存失败");
             return jsonObject;
-        } catch (IOException e) {
+        } catch (Exception e) {
             jsonObject.put(Consts.CODE, 0);
             jsonObject.put(Consts.MSG, "保存失败,原因是:" + e.getMessage());
         } finally {
             return jsonObject;
         }
-    }
-
-    /**
-     * 根据歌手id查询歌曲
-     */
-    @GetMapping("/songOfSingerId")
-    @ResponseBody
-    public Object songOfSingerId(@RequestBody Song song) {
-        return songService.songOfSingerId(song.getSingerId());
-    }
-
-    /**
-     * 根据歌曲名精确查询歌曲
-     */
-    @GetMapping("/songOfSongName")
-    @ResponseBody
-    public Object songOfSongName(@RequestBody Song song) {
-        return songService.songOfName(song.getName());
     }
 
     /**
@@ -243,6 +226,23 @@ public class SongController {
             return jsonObject;
         }
     }
+    /**
+     * 根据歌手id查询歌曲
+     */
+    @GetMapping("/songOfSingerId")
+    @ResponseBody
+    public Object songOfSingerId(@RequestBody Song song) {
+        return songService.songOfSingerId(song.getSingerId());
+    }
+
+    /**
+     * 根据歌曲名精确查询歌曲
+     */
+    @GetMapping("/songOfSongName")
+    @ResponseBody
+    public Object songOfSongName(@RequestBody Song song) {
+        return songService.songOfName(song.getName());
+    }
 
     /**
      * 根据歌曲id查询歌曲对象
@@ -260,6 +260,15 @@ public class SongController {
     @ResponseBody
     public Object allSong() {
         return songService.allSong();
+    }
+
+    /**
+     * 根据歌名模糊查询
+     */
+    @GetMapping("/likeSongOfName")
+    @ResponseBody
+    public Object likeSongOfName(@RequestBody Song song) {
+        return songService.likeSongOfName("%"+song.getName()+"%");
     }
 
 }

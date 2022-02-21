@@ -129,4 +129,11 @@
         from song
         where singer_id = #{singerId} and is_delete=0 and 1=1
     </select>
+
+    <select id="likeSongOfName" resultMap="ResultmapWithBLOBs" parameterType="java.lang.String">
+        select
+        <include refid="Blob_column_List"/>
+        from song
+        where name like #{name} and is_delete=0 and 1=1
+    </select>
 </mapper>

@@ -71,8 +71,7 @@ public class SingerController {
     @GetMapping("/delete")
     @ResponseBody
     public Object deleteSinger(@RequestBody Singer singer) {
-        String id = String.valueOf(singer.getId());
-        return singerService.delete(Integer.parseInt(id));
+        return singerService.delete(singer.getId());
     }
 
     /**
@@ -81,8 +80,7 @@ public class SingerController {
     @GetMapping("/selectByPrimaryKey")
     @ResponseBody
     public Object selectByPrimaryKey(@RequestBody Singer singer) {
-        String id = String.valueOf(singer.getId());
-        return singerService.selectByPrimaryKey(Integer.parseInt(id));
+        return singerService.selectByPrimaryKey(singer.getId());
     }
 
     /**
